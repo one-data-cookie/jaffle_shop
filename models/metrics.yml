@@ -1,0 +1,46 @@
+version: 2
+
+metrics:
+  - name: rolling_new_customers
+    label: New Customers
+    model: ref('customers')
+    description: "Count of paying customers using the product"
+
+    calculation_method: count_distinct
+    expression: customer_id
+
+    timestamp: first_order
+    time_grains: [day, week, month, quarter, year, all_time]
+    
+    filters:
+      - field: total_order_amount
+        operator: '>='
+        value: '10'
+      - field: company_name
+        operator: '!='
+        value: "'Jaffle Shop, Inc'"
+      - field: first_order
+        operator: '>='
+        value: "'2020-01-01'"
+
+  - name: gross_sales
+    label: Gross Sales
+    model: ref('orders')
+    description: "Total gross sales of the product"
+
+    calculation_method: sum
+    expression: amount
+
+    timestamp: order_date
+    time_grains: [day, week, month, quarter, year, all_time]
+
+  - name: net_sales
+    label: Net Sales
+    model: ref('orders')
+    description: "Total net sales of the product, i.e. gross sales excl. discounts"
+
+    calculation_method: sum
+    expression: credit_card_amount + bank_transfer_amount
+
+    timestamp: order_date
+    time_grains: [day, week, month, quarter, year, all_time]

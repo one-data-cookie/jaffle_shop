@@ -7,7 +7,11 @@ models:
         tests:
           - unique
           - not_null
+      - name: order_id
+        description: Foreign key to the orders table
       - name: payment_method
         tests:
           - accepted_values:
               values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
+      - name: amount
+        description: Amount (AUD) of the payment

@@ -2,3 +2,4 @@ dbt_packages/
 logs/
 target/
 **/.DS_Store
+.autodoc/

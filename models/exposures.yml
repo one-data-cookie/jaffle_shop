@@ -1,6 +1,6 @@
 version: 2
 exposures:
-  - name: Customers_Dashboard
+  - name: customers_dashboard
     label: Customers Dashboard
     type: dashboard
     url: http://localhost:8080/superset/dashboard/1
